@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aspectj>
+	<aspects>
+		<aspect name="com.tesco.tps.config.aspect.AuditAware" />
+		<aspect name="com.tesco.tps.config.aspect.SecurityAware" />
+	</aspects>
+
+	<!-- <weaver options="-verbose -debug -showWeaveInfo"> -->
+	<weaver>
+		<include within="com.tesco.tps.config.aspect.*" />
+		<include within="com.tesco.tps.service.impl.*" />
+		<include within="com.tesco.tps.commons.service.*" />
+		<include within="com.tesco.tps.resource.*" />
+	</weaver>
+
+</aspectj>

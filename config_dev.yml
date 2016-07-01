@@ -1,0 +1,78 @@
+tpsConfig:
+ basePackages: com.tesco.tps
+ couchbase.config:
+  couchbase.bucket.name: default
+  couchbase.bucket.username: ""
+  couchbase.bucket.password: ""
+  couchbase.nodes: 
+    - http://localhost:8091/pools
+ 
+
+# server confign.
+server:
+  applicationConnectors:
+    - type: http
+      port: 9080
+  adminConnectors:
+    - type: http
+      port: 9081
+
+# Logging settings : FILE & CONSOLE.
+logging:
+  level: INFO
+  appenders:
+    - type: file
+      threshold: ERROR
+      currentLogFilename: /appl/TUS_Logs/tu-services.log
+      archivedLogFilenamePattern: /appl/TUS_Logs/tu-services-%d.log.gz
+    - type: console
+      threshold: INFO
+      target: stdout
+
+# Swagger Configuration
+swagger:
+  resourcePackage: com.tesco.tps.resource
+  version: 1.0.0
+  title: Cost Amendment Service
+  
+# Resource Base Package location
+basePackages: com.tesco.tps.resource,com.tesco.tps.service,com.tesco.tps
+
+# Auth Caching
+#authenticationCachePolicy: maximumSize=10000, expireAfterAccess=10m
+
+# Rest Client COnfig
+httpClient:
+  timeout: 5000ms
+  connectionTimeout: 5000ms
+  timeToLive: 1h
+  cookiesEnabled: false
+  maxConnections: 1024
+  maxConnectionsPerRoute: 1024
+  keepAlive: 0ms
+  retries: 0
+  userAgent: TUS
+  
+# Identity Service Parameters
+#identityUrl: https://ppe-identity.tesco.com
+#identityClientId: 25227cfc-e44e-4bcf-82dd-444a9a2e4b04
+#identityClientSecret: e96bda79-4ca2-4de6-a29c-c45bb9eed56f
+
+# Identity Service Parameters for CPM
+clientid: trn:tesco:cid:ab54468c-d3fe-420c-88f5-77f5d2f7674f:3446ae65-75dc-493d-869b-143ffb78efbd
+granttype: password
+scope: oob
+username: 1000509@partners.tesco.com
+password: BounceCamel512
+identityURL: https://ppe-api-identity.dotcom.tesco.org/v3/api/auth/oauth/v2/token
+TPSURL: https://tradingpartner-ppe.dev.global.tesco.org/v1/tradingpartners
+
+# Authorisation with Trading Partner Service
+TPSUSERGroupURL: https://tradingpartner-ppe.dev.global.tesco.org/v1/usermanagement/userdetails
+TUS_CLIENT_ID: trn:tesco:cid:ab54468c-d3fe-420c-88f5-77f5d2f7674f
+PARENT_GROUP_NAME: Global_CPM_Admin
+GROUP_NAME: CPM
+
+#TU and TU Cost Client Id Authorization
+tradedunit.x-client-id: tradedunitclientid
+tradedunit.cost.x-client-id: tradedunitcostclientid

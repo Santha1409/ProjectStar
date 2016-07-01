@@ -1,0 +1,161 @@
+@tidl 2.0.0;
+
+interface TradingPartners exposes TradingPartnerService {
+
+@owner "Ujjwal KhadKhad";
+@author "Mahesh Nakum";
+
+@description
+"
+#Overview of Trading Partner Service
+
+The Trading Partner service owns, and allows the maintenance of, information about Tesco Trading Partners. A Trading Partner is any company with which Tesco has a financial relationship.  
+
+This includes: 
+
+1. Companies who are providers of Goods and Services for Resale 
+2. Companies who are providers of Goods and Services Not For Resale 
+3. Sellers and Concessionaires 
+4. Franchise Partners 
+5. Wholesale Customers 
+6. Tesco companies 
+  
+It does NOT include individual Retail Customers of Tesco. 
+  
+The information accessible includes: 
+
+Trading Partner Location and Sub-Location details such as Invoicing Address, GS1 Reference, EDI mailbox, Location of individual factories, and Supplier Hierarchy (e.g. parent company) 
+
+Trading Partner Financial details such as Bank details, Preferred method and Terms of Payment (including currency), Trading Partner Status (e.g. Approved, Factory Audited, Undergoing Audit), and Audit Results 
+
+The Products supplied to Tesco, or to Tesco customers, by this Trading partner and their status e.g. orderable. 
+
+All costs and terms related to the Trading Partner, and the products supplied, such as commission rates, deals, and product cost price from the Trading partner 
+
+Where the trading relationship exists within the Tesco organisational structure (e.g. Tesco Stores Hong Kong, Tesco Clothing) to support ordering between companies 
+  
+The service is responsible for implementing any rules concerning trading relationships such as allowable terms. It must also help to enforce Key Financial Controls (e.g. an employee who can update a Trading Partner's bank details cannot also authorise payment to them). 
+  
+Please note that this service is NOT responsible for: Accepting Invoices / Purchase Orders from Trading Partners - This belongs to the Supplier Order service
+
+Transfer of money to / from Trading Partners - This belongs to the Trading Partner Payment service. 
+
+Note that context and provider selection can be made by using business parameter on the call.
+
+#Purpose
+The current scope of operations in this IDL supports  retrieval of UK/ROI Trading Partners and their related sites. The service operates as a read store with QS and OFi as provider systems.
+
+#Production URL
+https://tradingpartner.api.tesco.com/v1/
+
+";
+
+@organisation "Tesco";
+                @organisationDomainName "tesco.com";
+                @namespacePrefix "Tesco.Com.Services";
+    @version 1.0.0, "dev","2015/10/15", "First Draft of IDL";
+
+ 
+/************************  OPERATIONS *************************/
+
+/* OPERATION GET - Get a Trading Partner's details based on existing provider ID - Ujjwal Khadkhad 06/10/2015 */
+
+/* Reviewers: This operation to retrieve only a single Trading Partner is provided for simplicity. */
+
+/* The _interface and _status endpoints are currently in development */
+
+
+	TradingPartner getTradingPartnerBySystemKey(mandatory Int Systemkey,  string SystemName, string PartnerType)
+		throws NoRecordsFoundException, BadRequestExeception, UnAuthorizedException, InternalServerErrorException {
+		@description "This operation returns a selected set of attributes/values relating to a single Trading Partner. 
+
+		To get the document(s) from Trading partner Services the user require a unique ref ID, systemname and partner type.";
+        
+		@parameter Systemkey, "Supplier ID of the Trading Partner. I.e. - QS, OFi or TPS Number";
+        
+        @parameter SystemName, "Source system name. Where the Partner has been created i.e. - QS, OFi or TPS.";
+        
+        @parameter PartnerType, "The set of attributes that are to be returned. i.e. - Supplier or Site.";
+        
+        @exception NoRecordsFoundException, "No match was found for the referenceId/referenceIdType combination, or they are conflicting"; 
+                      
+        @exception BadRequestExeception, "Request is not valid";
+        
+        @exception UnAuthorizedException, "Requester is not authorized to invoke this operation";
+        
+        @exception InternalServerErrorException, "General internal error";
+	
+    	@return "Selected attributes for the Trading Partner that matches the referenceId/referenceIdType that was given.";
+        
+        @since 1.0.0;
+        
+        }
+        
+        TradingPartner getTradingPartnerByUUID(mandatory Int UniqueKey)
+        
+		throws NoRecordsFoundException, BadRequestExeception, UnAuthorizedException, InternalServerErrorException {
+		
+        @description "This operation returns a selected set of attributes / values relating to a single Trading Partner. A uniquekey is genereted by TP services and starts with 1000000.";
+        		   
+        @parameter UniqueKey, "1000000";
+        
+        @exception NoRecordsFoundException, "No match was found for the referenceId/referenceIdType combination, or they are conflicting"; 
+                      
+        @exception BadRequestExeception, "Request is not valid";
+        
+        @exception UnAuthorizedException, "Requester is not authorized to invoke this operation";
+        
+        @exception InternalServerErrorException, "General internal error";
+	
+    	@return "Selected attributes for the Trading Partner that matches the referenceId/referenceIdType that was given.";
+        
+        @since 1.0.0;
+        
+             
+        }
+        
+/* Types Start */
+
+type TradingPartner ()
+{
+	@description " Trading Partner";
+    @since 1.0.0;
+
+}
+
+        
+      /******************** EXCEPTIONS START     **************/   
+exception NoContentException(string message)
+{
+  @description "Thrown when a specified TradingPartner number is not found.
+  #Notes HTTP Code : 404";
+  @parameter message, "No Records Found";
+  @since 1.0.0;
+}
+
+exception BadRequestException(string message)
+{
+  @description "Thrown when a specified request is not valid.
+  #Notes HTTP Code : 400";
+  @parameter message, "Bad Request";
+  @since 1.0.0;
+}
+
+exception UnAuthorizedException(string message)
+{
+  @description "Thrown when the request is UnAuthorized.
+  #Notes HTTP Code : 401";
+  @parameter message, "UnAuthorized";
+  @since 1.0.0;
+}
+
+exception InternalServerErrorException(string message)
+{
+  @description "Thrown when the server error.
+  #Notes HTTP Code : 500";
+  @parameter message, "General Internal Error";
+  @since 1.0.0;
+}
+
+} 
+
