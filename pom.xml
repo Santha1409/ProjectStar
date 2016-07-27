@@ -1,31 +1,32 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.tesco.cas</groupId>
-  <artifactId>CostAmendService</artifactId>
-  <version>0.1</version>
-  <name>CostAmendService</name>
-  <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.tesco.cas</groupId>
+	<artifactId>CostAmendService</artifactId>
+	<version>0.1</version>
+	<name>CostAmendService</name>
+	<properties>
 		<java.version>1.8</java.version>
 		<dropwizard.version>0.9.2</dropwizard.version>
 		<encoding>UTF-8</encoding>
 		<dropwizard.swagger.version>0.7.0</dropwizard.swagger.version>
-		<tps-core-version>0.1.35</tps-core-version>
-		<tps-cdi-version>0.1.24</tps-cdi-version>
-		<tps-couchbase-version>0.1.29</tps-couchbase-version>
-		<tps-validator-version>0.0.12</tps-validator-version>
-		<tps-auth-version>0.1.13</tps-auth-version>
-		<tps-auth-support-version>0.1.18</tps-auth-support-version>
+		<tps-core-version>0.1.41</tps-core-version>
+		<tps-cdi-version>0.1.29</tps-cdi-version>
+		<tps-couchbase-version>0.1.35</tps-couchbase-version>
+		<tps-validator-version>0.0.18</tps-validator-version>
+		<tps-auth-version>0.1.19</tps-auth-version>
+		<tps-auth-support-version>0.1.24</tps-auth-support-version>
 		<guava-version>19.0</guava-version>
 		<!-- sonar coverage properties -->
 		<argLine>-Xmx128m</argLine>
 		<sonar.jacoco.reportPath>target/jacoco.exec</sonar.jacoco.reportPath>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-	<!-- 	<sonar.exclusions>file:**/src/main/java/com/tesco/tps/config/model/*,file:**/src/main/java/com/tesco/tps/dto/*,file:**/src/main/java/com/tesco/tps/domain/*,file:**/src/main/java/com/tesco/tps/service/*,file:**/src/main/java/com/tesco/tps/dao/*,file:**/src/main/java/com/tesco/tps/resource/AbstractSimpleResource.java,file:**/src/main/java/com/tesco/tps/resource/AbstractGenericResource.java,file:**/src/main/java/com/tesco/tps/resource/AbstractResource.java,file:**/src/main/java/com/tesco/tps/commons/support/ServiceUtils.java,file:**/src/main/java/com/tesco/tps/config/annotations/*,file:**/src/main/java/com/tesco/tps/commons/service/AbstractCouchbaseService.java,file:**/src/main/java/com/tesco/tps/commons/service/SecureFilterSupport.java,file:**/src/main/java/com/tesco/tps/commons/service/GenericService.java,file:**/src/main/java/com/tesco/tps/commons/service/DataMapperService.java,file:**/src/main/java/com/tesco/tps/exception/*,file:**/src/main/java/com/tesco/tps/commons/registration/*,file:**/src/main/java/com/tesco/tps/config/auth/*,file:**/src/main/java/com/tesco/tps/constant/EnumMatcherType.java,file:**/src/main/java/com/tesco/tps/constant/FilterKeyType.java,file:**/src/main/java/com/tesco/tps/constant/IEnumMatcherType.java,file:**/src/main/java/com/tesco/tps/constant/RoleType.java,file:**/src/main/java/com/tesco/tps/config/interfaces/*,file:**/src/main/java/com/tesco/tps/config/model/*,file:**/src/main/java/com/tesco/tps/service/impl/AbstractUserManagementService.java,file:**/src/main/java/com/tesco/tps/commons/service/AbstractDataMapperService.java,file:**/src/main/java/com/tesco/tps/commons/service/AbstractGenericService.java,file:**/src/main/java/com/tesco/tps/commons/service/AbstractRestService.java,file:**/src/main/java/com/tesco/tps/commons/service/AbstractServiceSupport.java,file:**/src/main/java/com/tesco/tps/service/impl/RootLookupServiceImpl.java,file:**/src/main/java/com/tesco/tps/config/support/ResourceRegistrationUtils.java,file:**/src/main/java/com/tesco/tps/config/aspect/SecurityAware.java,file:**src/main/java/com/tesco/tps/service/impl/TradingPartnerServiceImpl.java,file:**src/main/java/com/tesco/tps/service/impl/TradingPartnerSiteServiceImpl.java,file:**src/main/java/com/tesco/tps/service/impl/CommercialHierarchyServiceImpl.java</sonar.exclusions> -->
+		<!-- <sonar.exclusions>file:**/src/main/java/com/tesco/tps/config/model/*,file:**/src/main/java/com/tesco/tps/dto/*,file:**/src/main/java/com/tesco/tps/domain/*,file:**/src/main/java/com/tesco/tps/service/*,file:**/src/main/java/com/tesco/tps/dao/*,file:**/src/main/java/com/tesco/tps/resource/AbstractSimpleResource.java,file:**/src/main/java/com/tesco/tps/resource/AbstractGenericResource.java,file:**/src/main/java/com/tesco/tps/resource/AbstractResource.java,file:**/src/main/java/com/tesco/tps/commons/support/ServiceUtils.java,file:**/src/main/java/com/tesco/tps/config/annotations/*,file:**/src/main/java/com/tesco/tps/commons/service/AbstractCouchbaseService.java,file:**/src/main/java/com/tesco/tps/commons/service/SecureFilterSupport.java,file:**/src/main/java/com/tesco/tps/commons/service/GenericService.java,file:**/src/main/java/com/tesco/tps/commons/service/DataMapperService.java,file:**/src/main/java/com/tesco/tps/exception/*,file:**/src/main/java/com/tesco/tps/commons/registration/*,file:**/src/main/java/com/tesco/tps/config/auth/*,file:**/src/main/java/com/tesco/tps/constant/EnumMatcherType.java,file:**/src/main/java/com/tesco/tps/constant/FilterKeyType.java,file:**/src/main/java/com/tesco/tps/constant/IEnumMatcherType.java,file:**/src/main/java/com/tesco/tps/constant/RoleType.java,file:**/src/main/java/com/tesco/tps/config/interfaces/*,file:**/src/main/java/com/tesco/tps/config/model/*,file:**/src/main/java/com/tesco/tps/service/impl/AbstractUserManagementService.java,file:**/src/main/java/com/tesco/tps/commons/service/AbstractDataMapperService.java,file:**/src/main/java/com/tesco/tps/commons/service/AbstractGenericService.java,file:**/src/main/java/com/tesco/tps/commons/service/AbstractRestService.java,file:**/src/main/java/com/tesco/tps/commons/service/AbstractServiceSupport.java,file:**/src/main/java/com/tesco/tps/service/impl/RootLookupServiceImpl.java,file:**/src/main/java/com/tesco/tps/config/support/ResourceRegistrationUtils.java,file:**/src/main/java/com/tesco/tps/config/aspect/SecurityAware.java,file:**src/main/java/com/tesco/tps/service/impl/TradingPartnerServiceImpl.java,file:**src/main/java/com/tesco/tps/service/impl/TradingPartnerSiteServiceImpl.java,file:**src/main/java/com/tesco/tps/service/impl/CommercialHierarchyServiceImpl.java</sonar.exclusions> -->
 	</properties>
-	
-  <dependencies>
-  
-  	<dependency>
+
+	<dependencies>
+
+		<dependency>
 			<groupId>com.tesco.tps</groupId>
 			<artifactId>tps-core</artifactId>
 			<version>${tps-core-version}</version>
@@ -104,21 +105,17 @@
 			<artifactId>dropwizard-views</artifactId>
 			<version>${dropwizard.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-client</artifactId>
 			<version>0.8.2</version>
 		</dependency>
-	<!-- 	
-		<dependency>
-    <groupId>io.swagger</groupId>
-    <artifactId>swagger-jersey2-jaxrs</artifactId>
-    <version>1.5.0</version>
-</dependency> -->
+		<!-- <dependency> <groupId>io.swagger</groupId> <artifactId>swagger-jersey2-jaxrs</artifactId> 
+			<version>1.5.0</version> </dependency> -->
 
-  </dependencies>
-  <build>
+	</dependencies>
+	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>

@@ -39,7 +39,7 @@ swagger:
 basePackages: com.tesco.tps.resource,com.tesco.tps.service,com.tesco.tps
 
 # Auth Caching
-#authenticationCachePolicy: maximumSize=10000, expireAfterAccess=10m
+authenticationCachePolicy: maximumSize=10000, expireAfterAccess=10m
 
 # Rest Client COnfig
 httpClient:
@@ -57,6 +57,7 @@ httpClient:
 #identityUrl: https://ppe-identity.tesco.com
 #identityClientId: 25227cfc-e44e-4bcf-82dd-444a9a2e4b04
 #identityClientSecret: e96bda79-4ca2-4de6-a29c-c45bb9eed56f
+
 
 # Identity Service Parameters for CPM
 clientid: trn:tesco:cid:ab54468c-d3fe-420c-88f5-77f5d2f7674f:3446ae65-75dc-493d-869b-143ffb78efbd
@@ -76,3 +77,16 @@ GROUP_NAME: CPM
 #TU and TU Cost Client Id Authorization
 tradedunit.x-client-id: tradedunitclientid
 tradedunit.cost.x-client-id: tradedunitcostclientid
+
+#V2 version
+V2clientid: trn:tesco:cid:ef6139a5-0c38-4f5c-a5bd-8ba42727ae4b:d141439b-973a-42c7-a9cc-65588079418d
+V2granttype: password
+V2scope: oob
+V2username: tradedunitservice.app.v2
+V2password: P@ssw0rd!
+V2TPSUSERGroupURL: https://tradingpartner-ppe.dev.global.tesco.org/v2/usermanagement/userdetails
+V2groupName: CPM
+V2roleName: CPM
+
+#userManagementURL
+usermanagementUrl: https://tradingpartner-ppe.dev.global.tesco.org/v2/usermanagement/userdetails

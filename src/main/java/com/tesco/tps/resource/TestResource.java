@@ -25,10 +25,10 @@ import com.wordnik.swagger.annotations.ApiResponses;
 @Api(value = "Test Resource", description = "Test Information")
 @Resource
 public class TestResource {
-	
+
 	@Inject
 	TestService testService;
-	
+
 	@GET
 	@Timed
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -38,11 +38,11 @@ public class TestResource {
 			@ApiResponse(code = 404, message = "Not Found"), @ApiResponse(code = 500, message = "Server error") })
 
 	public Response tradedUnitByTpnd(@QueryParam("id") String id) {
-	
-		//testService.getData(id);
-	//return CostAmendHttpResponse.ok("success");
-		
-		TestDetails testDetails=testService.getData(id);
+
+		// testService.getData(id);
+		// return CostAmendHttpResponse.ok("success");
+
+		TestDetails testDetails = testService.getData(id);
 		return CostAmendHttpResponse.ok(testDetails);
 
 	}
@@ -58,17 +58,10 @@ public class TestResource {
 
 	public Response tradedUnitByMultipleTpnd(@ApiParam("TestDetails") TestDetails testDetails) {
 
-		/*return CostAmendHttpResponse.ok("success");*/
+		/* return CostAmendHttpResponse.ok("success"); */
 		testService.postData(testDetails);
-		 return CostAmendHttpResponse.ok(testDetails); 
-		
+		return CostAmendHttpResponse.ok(testDetails);
 
-	
-		
-
-		
-		}//method
-
-	
+	}// method
 
 }

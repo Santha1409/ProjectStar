@@ -11,5 +11,6 @@ public class CostAmendConstants {
 	public static final String TPS_CLIENT_ID = "TPS CLIENT ID";
 	public static final String CONTENT_TYPE = "application/json";
 	public static final String CLIENT_ID = "X-Client-Id";
-	
+	public static final String KEY_PREFIX_COSTAMEND="trn:tesco:costamend:uuid:";
+    
 }
