@@ -45,7 +45,8 @@ public class CostAmendServiceImpl extends AbstractCouchbaseService<CostAmendRequ
 		costDocumentList.getInputList().forEach(costDocument -> inseringAndSettingCostDocument(costDocument,
 				userDetails, costAmendResponseDto, missingList));
 		costAmendResponseDto.setMissingSet(missingList);
-		 return CostAmendHttpResponse.ok(costAmendResponseDto);
+		costAmendResponseDto.setMessage("success");
+		return CostAmendHttpResponse.ok(costAmendResponseDto);
 	}
 
 	private void inseringAndSettingCostDocument(CostAmendRequestDto costDocument, Principal userDetails,

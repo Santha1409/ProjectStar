@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
-
+import javax.ws.rs.core.Response;
 import com.google.inject.Inject;
 import com.tesco.tps.auth.constant.RoleType;
 import com.tesco.tps.auth.support.annotation.v2.Secured;
@@ -51,11 +51,11 @@ public class CostAmendResource extends AbstractSimpleResource<CostAmendRequest, 
 			@ApiResponse(code = 200, message = "Ok"), @ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 201, message = "Created") })
 	@Secured(RoleType.ROLE_CREATE)
-	public void postResource(@Auth Principal principal, @Context UriInfo uriInfo,
+	public Response postResource(@Auth Principal principal, @Context UriInfo uriInfo,
 			@ApiParam("ListOfCostCreate") CostAmendInput listOfCostCreate) {
 		/*listOfCostCreate.getInputList()
 				.forEach(costDocument -> costAmendService.creatingCostDocument(costDocument, principal));*/
-		 costAmendService.creatingCostDocument(listOfCostCreate,principal);
+		return  costAmendService.creatingCostDocument(listOfCostCreate,principal);
 		
 	}
 
