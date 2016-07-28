@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import com.google.inject.Inject;
 import com.tesco.tps.auth.constant.RoleType;
 import com.tesco.tps.auth.support.annotation.v2.Secured;
+import com.tesco.tps.auth.support.service.v2.UserDetails;
 import com.tesco.tps.core.annotation.Resource;
 import com.tesco.tps.core.resource.AbstractSimpleResource;
 import com.tesco.tps.core.service.GenericService;
@@ -53,10 +54,8 @@ public class CostAmendResource extends AbstractSimpleResource<CostAmendRequest, 
 	@Secured(RoleType.ROLE_CREATE)
 	public Response postResource(@Auth Principal principal, @Context UriInfo uriInfo,
 			@ApiParam("ListOfCostCreate") CostAmendInput listOfCostCreate) {
-		/*listOfCostCreate.getInputList()
-				.forEach(costDocument -> costAmendService.creatingCostDocument(costDocument, principal));*/
-		return  costAmendService.creatingCostDocument(listOfCostCreate,principal);
-		
+		return costAmendService.creatingCostDocument(listOfCostCreate, principal);
+
 	}
 
 	@Override

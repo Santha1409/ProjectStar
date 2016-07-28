@@ -36,12 +36,12 @@ public class ClientLoggerFilter implements javax.servlet.Filter {
 					|| httpRequest.getMethod().equals("OPTIONS")) {
 				chain.doFilter(request, response);
 			} else {
-				/*
-				 * LOG.info("<< AUDIT :: URI: " + httpRequest.getRequestURI() +
-				 * " - " + "Method: " + httpRequest.getMethod() + " - " +
-				 * "ClientId: " + clientId + " - " + "Host: " +
-				 * httpRequest.getRemoteHost() + " >>");
-				 */
+				
+				  LOG.info("<< AUDIT :: URI: " + httpRequest.getRequestURI() +
+				  " - " + "Method: " + httpRequest.getMethod() + " - " +
+				  "ClientId: " + clientId + " - " + "Host: " +
+				  httpRequest.getRemoteHost() + " >>");
+				 
 				if (httpRequest.getRequestURI().matches("/docs/*")
 						|| httpRequest.getRequestURI().contains("/swagger-static/")
 						|| httpRequest.getRequestURI().matches("/favicon.ico")) {

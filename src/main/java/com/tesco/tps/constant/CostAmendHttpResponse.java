@@ -52,8 +52,16 @@ public class CostAmendHttpResponse {
 		}
 	}
 
+	public static Response partialOk(Object entity) {
+		return Response.status(207).entity(entity).build();
+	}
+
 	public static Response ok(Object entity, MediaType contentType) {
 		return getResponse(entity, HttpServletResponse.SC_OK, contentType, 0, 0);
+	}
+
+	public static Response couchbaseError(Object entity) {
+		return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).entity(entity).build();
 	}
 
 	public static Response okWithoutBody() {
@@ -115,22 +123,24 @@ public class CostAmendHttpResponse {
 		return Response.ok(entity).language(Locale.UK).type(MediaTypeObj)
 				.header("Cache-Control", "public, ".concat(control.toString())).build();
 	}
+
 	/*
 	 * TUS methods
 	 */
 	public static Response unAuthorized(String message) {
 		return Response.status(HttpServletResponse.SC_UNAUTHORIZED).entity("{\"Message\":\"" + message + "\"}").build();
 	}
-	
+
 	public static Response unAuthorizedWithoutMessage() {
 		return Response.status(HttpServletResponse.SC_UNAUTHORIZED).build();
 	}
+
 	public static Response partialok(Object entity) {
-        if (entity == null || (entity instanceof Collection && ((Collection<?>) entity).isEmpty())) {
-                    return Response.status(HttpServletResponse.SC_NOT_FOUND).build();
-        } else {
-                    return Response.status(207).entity(entity).build();
-        }
-}
+		if (entity == null || (entity instanceof Collection && ((Collection<?>) entity).isEmpty())) {
+			return Response.status(HttpServletResponse.SC_NOT_FOUND).build();
+		} else {
+			return Response.status(207).entity(entity).build();
+		}
+	}
 
 }

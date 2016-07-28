@@ -1,6 +1,7 @@
 package com.tesco.tps.service.impl;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Response;
 import com.google.inject.Inject;
@@ -23,56 +24,41 @@ public class CostAmendServiceImpl extends AbstractCouchbaseService<CostAmendRequ
 		super(repo);
 	}
 
-	private static List<MissingCostAmends> missingList;
+	private List<MissingCostAmends> missingList=new ArrayList<MissingCostAmends>();
 
-	/*
-	 * @Override public void creatingCostDocument(CostAmendRequestDto
-	 * costDocument, Principal userDetails) {
-	 * costDocument.setCreatedBy(userDetails.getName());
-	 * costDocument.setModifiedBy(userDetails.getName()); try {
-	 * super.create(convert(costDocument, CostAmendRequest.class)); } catch
-	 * (RuntimeException exception) {
-	 * 
-	 * 
-	 * //convert(costDocument, MissingCostAmends.class); }
-	 * 
-	 * // costAmendResponseDto.setMissingSet(); }
-	 */
 	@Override
 	public Response creatingCostDocument(CostAmendInput costDocumentList, Principal userDetails) {
-		// List<MissingCostAmends> missingList = null;
 		CostAmendResponseDto costAmendResponseDto = new CostAmendResponseDto();
-		costDocumentList.getInputList().forEach(costDocument -> inseringAndSettingCostDocument(costDocument,
-				userDetails, costAmendResponseDto, missingList));
-		costAmendResponseDto.setMissingSet(missingList);
-		costAmendResponseDto.setMessage("success");
-		return CostAmendHttpResponse.ok(costAmendResponseDto);
+		costDocumentList.getInputList()
+				.forEach(costDocument -> inseringCostDocumentAndAddingMissingListForResponseDocument(costDocument,
+						userDetails, costAmendResponseDto, missingList));
+		return settingResponseBody(costAmendResponseDto, costDocumentList);
 	}
 
-	private void inseringAndSettingCostDocument(CostAmendRequestDto costDocument, Principal userDetails,
-			CostAmendResponseDto costAmendResponseDto, List<MissingCostAmends> missingList) {
+	private void inseringCostDocumentAndAddingMissingListForResponseDocument(CostAmendRequestDto costDocument,
+			Principal userDetails, CostAmendResponseDto costAmendResponseDto, List<MissingCostAmends> missingList) {
 		costDocument.setCreatedBy(userDetails.getName());
 		costDocument.setModifiedBy(userDetails.getName());
 		try {
 			super.create(convert(costDocument, CostAmendRequest.class));
+
 		} catch (RuntimeException exception) {
 			MissingCostAmends costAmendFailure = convert(costDocument, MissingCostAmends.class);
 			costAmendFailure.setReasonForFailure(exception.getMessage());
 			missingList.add(costAmendFailure);
-
 		}
 	}
-	/*
-	 * costDocumentList.getInputList().forEach(costDocument->{
-	 * costDocument.setCreatedBy(userDetails.getName());
-	 * costDocument.setModifiedBy(userDetails.getName()); } try {
-	 * super.create(convert(costDocument, CostAmendRequest.class)); } catch
-	 * (RuntimeException exception) {
-	 * 
-	 * 
-	 * //convert(costDocument, MissingCostAmends.class); }
-	 * 
-	 * // costAmendResponseDto.setMissingSet(); }
-	 */
 
+	private Response settingResponseBody(CostAmendResponseDto costAmendResponseDto, CostAmendInput costDocumentList) {
+		costAmendResponseDto.setMissingSet(missingList);
+		if (missingList.size() == 0) {
+			costAmendResponseDto.setMessage("Success");
+			return CostAmendHttpResponse.ok(costAmendResponseDto);
+		} else if (missingList.size() == costDocumentList.getInputList().size()) {
+			costAmendResponseDto.setMessage("Failure");
+			return CostAmendHttpResponse.couchbaseError(costAmendResponseDto);
+		} else
+			costAmendResponseDto.setMessage("PartialSuccess");
+		return CostAmendHttpResponse.partialOk(costAmendResponseDto);
+	}
 }
