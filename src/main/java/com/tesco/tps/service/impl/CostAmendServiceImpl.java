@@ -19,28 +19,28 @@ import com.tesco.tps.service.CostAmendService;
 @Service
 public class CostAmendServiceImpl extends AbstractCouchbaseService<CostAmendRequest, String>
 		implements CostAmendService {
+
 	@Inject
 	public CostAmendServiceImpl(CostAmendRepository repo) {
 		super(repo);
 	}
 
-	private List<MissingCostAmends> missingList=new ArrayList<MissingCostAmends>();
+	private List<MissingCostAmends> missingList = new ArrayList<MissingCostAmends>();
 
 	@Override
 	public Response creatingCostDocument(CostAmendInput costDocumentList, Principal userDetails) {
-		CostAmendResponseDto costAmendResponseDto = new CostAmendResponseDto();
 		costDocumentList.getInputList()
 				.forEach(costDocument -> inseringCostDocumentAndAddingMissingListForResponseDocument(costDocument,
-						userDetails, costAmendResponseDto, missingList));
-		return settingResponseBody(costAmendResponseDto, costDocumentList);
+						userDetails, missingList));
+		return settingResponseBody(costDocumentList);
 	}
 
 	private void inseringCostDocumentAndAddingMissingListForResponseDocument(CostAmendRequestDto costDocument,
-			Principal userDetails, CostAmendResponseDto costAmendResponseDto, List<MissingCostAmends> missingList) {
+			Principal userDetails, List<MissingCostAmends> missingList) {
 		costDocument.setCreatedBy(userDetails.getName());
 		costDocument.setModifiedBy(userDetails.getName());
 		try {
-			super.create(convert(costDocument, CostAmendRequest.class));
+			create(convert(costDocument, CostAmendRequest.class));
 
 		} catch (RuntimeException exception) {
 			MissingCostAmends costAmendFailure = convert(costDocument, MissingCostAmends.class);
@@ -49,7 +49,8 @@ public class CostAmendServiceImpl extends AbstractCouchbaseService<CostAmendRequ
 		}
 	}
 
-	private Response settingResponseBody(CostAmendResponseDto costAmendResponseDto, CostAmendInput costDocumentList) {
+	private Response settingResponseBody(CostAmendInput costDocumentList) {
+		CostAmendResponseDto costAmendResponseDto = new CostAmendResponseDto();
 		costAmendResponseDto.setMissingSet(missingList);
 		if (missingList.size() == 0) {
 			costAmendResponseDto.setMessage("Success");

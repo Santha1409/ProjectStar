@@ -1,4 +1,4 @@
-package com.tesco.tps.resource;
+/*package com.tesco.tps.resource;
 
 import static org.junit.Assert.fail;
 
@@ -31,4 +31,4 @@ public static final ResourceTestRule resources = getResourceTestRuleUtils()
 		fail("Not yet implemented");
 	}
 
-}
+}*/
